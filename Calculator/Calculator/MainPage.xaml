@@ -64,7 +64,7 @@
         <Button 
             Grid.Row="1" 
             Grid.Column="2"
-            Clicked="CalculatePercentage"
+            Clicked="onOperatorSelection"
             BackgroundColor="LightGrey"
             CornerRadius="0"
             FontSize="36"
@@ -75,7 +75,7 @@
             <ImageButton 
                 Grid.Row="1" 
                 Grid.Column="1"
-                Clicked="OnSquareRoot"
+                Command="{Binding BorrarDigitoCommand}"
                 Source="https://cdn-icons-png.flaticon.com/512/161/161651.png" 
                 BackgroundColor="Transparent" 
                  />

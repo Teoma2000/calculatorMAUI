@@ -1,4 +1,6 @@
-﻿namespace Calculator;
+﻿using System.Windows.Input;
+
+namespace Calculator;
 
 public partial class MainPage : ContentPage
 {
@@ -10,7 +12,10 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         OnClear(this, null);
+        BorrarDigitoCommand = new Command(BorrarDigito);
+        this.BindingContext = this;
     }
+    public ICommand BorrarDigitoCommand { get; }
 
     void OnClear(object sender, EventArgs e)
     {
@@ -79,21 +84,25 @@ public partial class MainPage : ContentPage
         }
     }
 
-    void CalculatePercentage(object sender, EventArgs e)
+    void OnPercentage(object sender, EventArgs e)
     {
-        if (currentState == 1)
-        {
-            // Si currentState es 1, significa que el porcentaje se aplica al primer número
-            firstNum = (firstNum * secondNum) / 100;
-        }
-        else if (currentState == 2)
-        {
-            // Si currentState es 2, significa que el porcentaje se aplica al segundo número
-            secondNum = (secondNum * firstNum) / 100;
-        }
+        if (firstNum == 0)
+            return;
+
+        double percentage = double.Parse(this.result.Text) / 100;
+        firstNum *= percentage;
 
         this.result.Text = firstNum.ToString();
     }
+
+    private void BorrarDigito()
+    {
+        if (!string.IsNullOrEmpty(this.result.Text))
+        {
+            this.result.Text = this.result.Text.Substring(0, this.result.Text.Length - 1);
+        }
+    }
+
 
 
 
